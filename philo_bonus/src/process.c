@@ -6,7 +6,7 @@
 /*   By: yde-goes <yde-goes@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 23:11:51 by yde-goes          #+#    #+#             */
-/*   Updated: 2023/02/19 15:19:54 by yde-goes         ###   ########.fr       */
+/*   Updated: 2023/02/19 16:01:54 by yde-goes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ int	process_create(pid_t *process, int (*f)(void *), t_philosopher *philo)
 {
 	int	exit_status;
 
+	exit_status = 0;
 	*process = fork();
 	if (*process == FORKED_CHILD)
 	{
