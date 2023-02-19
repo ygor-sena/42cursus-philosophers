@@ -6,7 +6,7 @@
 /*   By: yde-goes <yde-goes@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 09:44:07 by yde-goes          #+#    #+#             */
-/*   Updated: 2023/02/19 12:03:55 by yde-goes         ###   ########.fr       */
+/*   Updated: 2023/02/19 14:21:54 by yde-goes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@
 # define SLEEP_LOG "%5ld %2ld is sleeping\n"
 # define THINK_LOG "%5ld %2ld is thinking\n"
 # define DEATH_LOG "%5ld %2ld died\n"
+
+# define FORKED_CHILD 0
 
 typedef enum e_bool
 {

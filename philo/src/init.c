@@ -6,7 +6,7 @@
 /*   By: yde-goes <yde-goes@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 18:05:06 by yde-goes          #+#    #+#             */
-/*   Updated: 2023/02/19 11:59:49 by yde-goes         ###   ########.fr       */
+/*   Updated: 2023/02/19 14:39:47 by yde-goes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,9 @@ void	init_status(char **argv, t_status *status)
 	pthread_mutex_init(&status->mutex_last_meal, NULL);
 }
 
-pthread_mutex_t	**init_forks(t_status *status)
+pthread_mutex_t	*init_forks(t_status *status)
 {
-	pthread_mutex_t	**forks;
+	pthread_mutex_t	*forks;
 	size_t			i;
 
 	forks = malloc(status->total_philo * sizeof(pthread_mutex_t));
@@ -40,10 +40,7 @@ pthread_mutex_t	**init_forks(t_status *status)
 		return (NULL);
 	i = -1;
 	while (++i < status->total_philo)
-		forks[i] = malloc(sizeof(pthread_mutex_t));
-	i = -1;
-	while (++i < status->total_philo)
-		pthread_mutex_init(forks[i], NULL);
+		pthread_mutex_init(&forks[i], NULL);
 	return (forks);
 }
 
@@ -53,7 +50,6 @@ t_philosopher	*init_philosophers(t_status *status, pthread_mutex_t **forks)
 	size_t			i;
 
 	philos = malloc(status->total_philo * sizeof(t_philosopher));
-	i = -1;
 	if (!philos)
 		return (NULL);
 	i = 0;
@@ -61,9 +57,9 @@ t_philosopher	*init_philosophers(t_status *status, pthread_mutex_t **forks)
 	{
 		philos[i].philo_name = i + 1;
 		philos[i].left_fork = \
-			forks[ft_min(i, ((i + 1) % status->total_philo))];
+			&(*forks)[ft_min(i, ((i + 1) % status->total_philo))];
 		philos[i].right_fork = \
-			forks[ft_max(i, ((i + 1) % status->total_philo))];
+			&(*forks)[ft_max(i, ((i + 1) % status->total_philo))];
 		philos[i].status = status;
 		philos[i].eat_again = 0;
 		philos[i].last_meal = status->start_time;
