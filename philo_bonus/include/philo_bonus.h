@@ -57,7 +57,7 @@ typedef struct s_status
 	size_t			total_philo;
 	size_t			meals_to_eat;
 	size_t			start_time;
-	t_bool			stop_dinner;//
+	t_bool			stop_dinner;
 	sem_t			*sem_output;
 	sem_t			*sem_dinner;
 	sem_t			*sem_last_meal;
