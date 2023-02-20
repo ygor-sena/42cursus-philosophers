@@ -6,7 +6,7 @@
 /*   By: yde-goes <yde-goes@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 09:44:07 by yde-goes          #+#    #+#             */
-/*   Updated: 2023/02/19 14:41:49 by yde-goes         ###   ########.fr       */
+/*   Updated: 2023/02/20 18:51:45 by yde-goes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,5 +88,6 @@ void			*thread_manager(void *arg);
 int				ft_min(int a, int b);
 int				ft_max(int a, int b);
 long			get_current_time(void);
+void			mssleep(size_t ms_time);
 
 #endif
