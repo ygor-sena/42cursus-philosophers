@@ -6,7 +6,7 @@
 /*   By: yde-goes <yde-goes@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 09:43:09 by yde-goes          #+#    #+#             */
-/*   Updated: 2023/02/19 11:00:36 by yde-goes         ###   ########.fr       */
+/*   Updated: 2023/02/20 18:35:12 by yde-goes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,14 +45,14 @@ int	main(int argc, char **argv)
 static void	free_data(t_philosopher *philos)
 {
 	sem_unlink("/lock_output");
-	sem_unlink("/lock_repetitions");
 	sem_unlink("/lock_dinner");
 	sem_unlink("/lock_last_meal");
 	sem_unlink("/forks");
+	sem_unlink("/lock_stop");
 	sem_close(philos->forks);
-	sem_close(philos->status->mutex_output);
-	sem_close(philos->status->mutex_repetitions);
-	sem_close(philos->status->mutex_dinner);
-	sem_close(philos->status->mutex_last_meal);
+	sem_close(philos->status->sem_output);
+	sem_close(philos->status->sem_dinner);
+	sem_close(philos->status->sem_last_meal);
+	sem_close(philos->status->sem_stop);
 	free(philos);
 }

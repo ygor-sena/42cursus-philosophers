@@ -6,7 +6,7 @@
 /*   By: yde-goes <yde-goes@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 09:44:07 by yde-goes          #+#    #+#             */
-/*   Updated: 2023/02/19 14:21:54 by yde-goes         ###   ########.fr       */
+/*   Updated: 2023/02/20 18:40:45 by yde-goes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,13 +56,12 @@ typedef struct s_status
 	int				time_of_sleeping;
 	size_t			total_philo;
 	size_t			meals_to_eat;
-	size_t			meals_repetitions;
 	size_t			start_time;
-	t_bool			stop_dinner;
-	sem_t			*mutex_output;
-	sem_t			*mutex_repetitions;
-	sem_t			*mutex_dinner;
-	sem_t			*mutex_last_meal;
+	t_bool			stop_dinner;//
+	sem_t			*sem_output;
+	sem_t			*sem_dinner;
+	sem_t			*sem_last_meal;
+	sem_t			*sem_stop;
 }	t_status;
 
 typedef struct s_philosopher
@@ -76,6 +75,7 @@ typedef struct s_philosopher
 	sem_t			*forks;
 	pid_t			process;
 	t_status		*status;
+	pthread_t		manager;
 }	t_philosopher;
 
 size_t			to_natural_nbr(char *arg);
@@ -97,9 +97,8 @@ void			sleeping(t_philosopher *philo);
 
 void			*thread_manager(void *arg);
 
-int				ft_min(int a, int b);
-int				ft_max(int a, int b);
 long			get_current_time(void);
+void			mssleep(size_t ms_time);
 
 int				process_create(pid_t *process, \
 					int (*f)(void *), t_philosopher *philo);

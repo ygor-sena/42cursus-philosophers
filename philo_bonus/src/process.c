@@ -6,7 +6,7 @@
 /*   By: yde-goes <yde-goes@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 23:11:51 by yde-goes          #+#    #+#             */
-/*   Updated: 2023/02/19 16:01:54 by yde-goes         ###   ########.fr       */
+/*   Updated: 2023/02/20 18:35:34 by yde-goes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,9 @@ int	process_create(pid_t *process, int (*f)(void *), t_philosopher *philo)
 	*process = fork();
 	if (*process == FORKED_CHILD)
 	{
+		pthread_create(&philo->manager, NULL, thread_manager, philo);
 		exit_status = f(philo);
+		pthread_join(philo->manager, NULL);
 		exit_program(exit_status, philo);
 	}
 	return (exit_status);
@@ -54,15 +56,15 @@ int	process_join(t_philosopher *philos)
 void	exit_program(int exit_status, t_philosopher *philos)
 {
 	sem_unlink("/lock_output");
-	sem_unlink("/lock_repetitions");
 	sem_unlink("/lock_dinner");
 	sem_unlink("/lock_last_meal");
 	sem_unlink("/forks");
+	sem_unlink("/lock_stop");
 	sem_close(philos->forks);
-	sem_close(philos->status->mutex_output);
-	sem_close(philos->status->mutex_repetitions);
-	sem_close(philos->status->mutex_dinner);
-	sem_close(philos->status->mutex_last_meal);
+	sem_close(philos->status->sem_output);
+	sem_close(philos->status->sem_dinner);
+	sem_close(philos->status->sem_last_meal);
+	sem_close(philos->status->sem_stop);
 	free(philos->philo_addr);
 	exit(exit_status);
 }

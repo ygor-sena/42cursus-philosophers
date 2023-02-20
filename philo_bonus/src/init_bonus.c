@@ -6,7 +6,7 @@
 /*   By: yde-goes <yde-goes@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 18:05:06 by yde-goes          #+#    #+#             */
-/*   Updated: 2023/02/19 12:03:25 by yde-goes         ###   ########.fr       */
+/*   Updated: 2023/02/20 18:35:58 by yde-goes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void	init_status(char **argv, t_status *status)
 	sem_unlink("/lock_repetitions");
 	sem_unlink("/lock_dinner");
 	sem_unlink("/lock_last_meal");
+	sem_unlink("/lock_stop");
 	status->total_philo = to_natural_nbr(argv[1]);
 	status->time_of_death = to_natural_nbr(argv[2]);
 	status->time_of_eating = to_natural_nbr(argv[3]);
@@ -25,13 +26,12 @@ void	init_status(char **argv, t_status *status)
 	status->meals_to_eat = -1;
 	if (argv[5])
 		status->meals_to_eat = to_natural_nbr(argv[5]);
-	status->meals_repetitions = 0;
 	status->start_time = get_current_time();
 	status->stop_dinner = FALSE;
-	status->mutex_output = sem_open("/lock_output", O_CREAT, 0777, 1);
-	status->mutex_repetitions = sem_open("/lock_repetitions", O_CREAT, 0777, 1);
-	status->mutex_dinner = sem_open("/lock_dinner", O_CREAT, 0777, 1);
-	status->mutex_last_meal = sem_open("/lock_last_meal", O_CREAT, 0777, 1);
+	status->sem_output = sem_open("/lock_output", O_CREAT, 0644, 1);
+	status->sem_dinner = sem_open("/lock_dinner", O_CREAT, 0644, 1);
+	status->sem_last_meal = sem_open("/lock_last_meal", O_CREAT, 0644, 1);
+	status->sem_stop = sem_open("/lock_stop", O_CREAT, 0644, 0);
 }
 
 sem_t	*init_forks(t_status *status)
@@ -39,7 +39,7 @@ sem_t	*init_forks(t_status *status)
 	sem_t	*forks;
 
 	sem_unlink("/forks");
-	forks = sem_open("/forks", O_CREAT, 0777, status->total_philo);
+	forks = sem_open("/forks", O_CREAT, 0644, status->total_philo);
 	if (!forks)
 		return (NULL);
 	return (forks);
