@@ -6,7 +6,7 @@
 /*   By: yde-goes <yde-goes@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 10:11:53 by yde-goes          #+#    #+#             */
-/*   Updated: 2023/02/18 13:44:42 by yde-goes         ###   ########.fr       */
+/*   Updated: 2023/02/20 22:15:53 by yde-goes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@ t_bool	is_valid_input(int argc, char **argv)
 		return (FALSE);
 	while (i < (size_t) argc)
 	{
-		if (!is_natural_nbr(argv[i]))
+		if (!is_natural_nbr(argv[i]) || *argv[1] == '0' \
+			|| *argv[2] == '0' || *argv[3] == '0' || *argv[4] == '0')
 			return (FALSE);
 		i++;
 	}

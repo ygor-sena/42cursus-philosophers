@@ -6,7 +6,7 @@
 /*   By: yde-goes <yde-goes@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 09:44:07 by yde-goes          #+#    #+#             */
-/*   Updated: 2023/02/20 18:40:45 by yde-goes         ###   ########.fr       */
+/*   Updated: 2023/02/20 22:19:15 by yde-goes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ typedef struct s_status
 	size_t			total_philo;
 	size_t			meals_to_eat;
 	size_t			start_time;
-	t_bool			stop_dinner;//
+	t_bool			stop_dinner;
 	sem_t			*sem_output;
 	sem_t			*sem_dinner;
 	sem_t			*sem_last_meal;

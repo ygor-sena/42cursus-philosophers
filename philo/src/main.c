@@ -6,7 +6,7 @@
 /*   By: yde-goes <yde-goes@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 09:43:09 by yde-goes          #+#    #+#             */
-/*   Updated: 2023/02/19 14:47:18 by yde-goes         ###   ########.fr       */
+/*   Updated: 2023/02/20 22:19:02 by yde-goes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,9 @@ int	main(int argc, char **argv)
 
 	if (!is_valid_input(argc, argv))
 	{
-		printf("Invalid args: usage is <nbr_of_philo> <time_to_die> " \
-					"<time_to_eat> <time_to_sleep> <must_eat>(optional)\n");
+		printf("Invalid args: usage is <nbr_of_philo>(>= 1) "\
+				"<time_to_die>(>= 1) <time_to_eat>(>= 1) "\
+				"<time_to_sleep>(>= 1) <must_eat>(optional).\n");
 		return (EXIT_FAILURE);
 	}
 	init_status(argv, &status);
