@@ -6,7 +6,7 @@
 /*   By: yde-goes <yde-goes@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 09:44:07 by yde-goes          #+#    #+#             */
-/*   Updated: 2023/02/20 18:51:45 by yde-goes         ###   ########.fr       */
+/*   Updated: 2023/02/21 09:45:30 by yde-goes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,11 @@
 # include <unistd.h>
 # include <sys/time.h>
 
-# define FORK_LOG "%5ld %2ld has taken a fork\n"
-# define EAT_LOG "%5ld %2ld is eating\n"
-# define SLEEP_LOG "%5ld %2ld is sleeping\n"
-# define THINK_LOG "%5ld %2ld is thinking\n"
-# define DEATH_LOG "%5ld %2ld died\n"
+# define FORK_LOG "%-5ld %2ld has taken a fork\n"
+# define EAT_LOG "%-5ld %2ld is eating\n"
+# define SLEEP_LOG "%-5ld %2ld is sleeping\n"
+# define THINK_LOG "%-5ld %2ld is thinking\n"
+# define DEATH_LOG "%-5ld %2ld died\n"
 
 typedef enum e_bool
 {
@@ -47,13 +47,13 @@ typedef struct s_status
 	int				time_of_sleeping;
 	size_t			total_philo;
 	size_t			meals_to_eat;
-	size_t			meals_repetitions;
+	size_t			meals_repeated;
 	size_t			start_time;
 	t_bool			stop_dinner;
-	pthread_mutex_t	mutex_output;
-	pthread_mutex_t	mutex_repetitions;
-	pthread_mutex_t	mutex_dinner;
-	pthread_mutex_t	mutex_last_meal;
+	pthread_mutex_t	m_print_status;
+	pthread_mutex_t	m_meals_repeated;
+	pthread_mutex_t	m_stop_dinner;
+	pthread_mutex_t	m_last_meal;
 }	t_status;
 
 typedef struct s_philosopher
@@ -61,8 +61,8 @@ typedef struct s_philosopher
 	size_t			philo_name;
 	size_t			eat_again;
 	size_t			last_meal;
-	pthread_mutex_t	*left_fork;
-	pthread_mutex_t	*right_fork;
+	pthread_mutex_t	*m_left_fork;
+	pthread_mutex_t	*m_right_fork;
 	t_status		*status;
 }	t_philosopher;
 

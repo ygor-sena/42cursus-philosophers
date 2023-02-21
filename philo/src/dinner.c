@@ -6,7 +6,7 @@
 /*   By: yde-goes <yde-goes@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 15:32:32 by yde-goes          #+#    #+#             */
-/*   Updated: 2023/02/19 14:41:14 by yde-goes         ###   ########.fr       */
+/*   Updated: 2023/02/21 09:49:18 by yde-goes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 void	set_dinner(t_status *status, t_philosopher *philos)
 {
-	pthread_t		*seat;
-	pthread_t		manager;
-	size_t			i;
+	pthread_t	*seat;
+	pthread_t	manager;
+	size_t		i;
 
 	seat = malloc(status->total_philo * sizeof(pthread_t));
 	i = -1;
@@ -46,10 +46,10 @@ void	*start_dinner(void *philo_sits_down)
 		eating(philo);
 		if (philo->eat_again == philo->status->meals_to_eat)
 		{
-			pthread_mutex_lock(&philo->status->mutex_repetitions);
-			philo->status->meals_repetitions += 1;
-			pthread_mutex_unlock(&philo->status->mutex_repetitions);
-			break ;
+			pthread_mutex_lock(&philo->status->m_meals_repeated);
+			philo->status->meals_repeated += 1;
+			pthread_mutex_unlock(&philo->status->m_meals_repeated);
+			return (NULL);
 		}
 		sleeping(philo);
 		thinking(philo);
@@ -59,13 +59,13 @@ void	*start_dinner(void *philo_sits_down)
 
 t_bool	stop_dinner(t_status *philo_status)
 {
-	pthread_mutex_lock(&philo_status->mutex_dinner);
+	pthread_mutex_lock(&philo_status->m_stop_dinner);
 	if (philo_status->stop_dinner == TRUE)
 	{
-		pthread_mutex_unlock(&philo_status->mutex_dinner);
+		pthread_mutex_unlock(&philo_status->m_stop_dinner);
 		return (TRUE);
 	}
-	pthread_mutex_unlock(&philo_status->mutex_dinner);
+	pthread_mutex_unlock(&philo_status->m_stop_dinner);
 	return (FALSE);
 }
 
@@ -76,7 +76,7 @@ size_t	print_status(t_philosopher *philo, t_action action)
 
 	current_time = get_current_time();
 	time_spent = current_time - philo->status->start_time;
-	pthread_mutex_lock(&philo->status->mutex_output);
+	pthread_mutex_lock(&philo->status->m_print_status);
 	if (action == TAKING_FORK)
 		printf(FORK_LOG, time_spent, philo->philo_name);
 	else if (action == EATING)
@@ -89,6 +89,6 @@ size_t	print_status(t_philosopher *philo, t_action action)
 		printf(DEATH_LOG, time_spent, philo->philo_name);
 	else if (action == THINKING)
 		printf(THINK_LOG, time_spent, philo->philo_name);
-	pthread_mutex_unlock(&philo->status->mutex_output);
+	pthread_mutex_unlock(&philo->status->m_print_status);
 	return (current_time);
 }
