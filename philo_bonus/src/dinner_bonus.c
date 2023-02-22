@@ -6,7 +6,7 @@
 /*   By: yde-goes <yde-goes@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 15:32:32 by yde-goes          #+#    #+#             */
-/*   Updated: 2023/02/20 18:40:59 by yde-goes         ###   ########.fr       */
+/*   Updated: 2023/02/22 10:57:51 by yde-goes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,13 +46,13 @@ int	start_dinner(void *philo_sits_down)
 
 t_bool	stop_dinner(t_status *philo_status)
 {
-	sem_wait(philo_status->sem_dinner);
-	if (*(int *)philo_status->sem_stop)
+	sem_wait(philo_status->sem_stop_dinner);
+	if (*(int *)philo_status->sem_is_dead)
 	{
-		sem_post(philo_status->sem_dinner);
+		sem_post(philo_status->sem_stop_dinner);
 		return (TRUE);
 	}
-	sem_post(philo_status->sem_dinner);
+	sem_post(philo_status->sem_stop_dinner);
 	return (FALSE);
 }
 
@@ -61,7 +61,7 @@ size_t	print_status(t_philosopher *philo, t_action action)
 	size_t	current_time;
 	size_t	time_spent;
 
-	sem_wait(philo->status->sem_output);
+	sem_wait(philo->status->sem_print_status);
 	current_time = get_current_time();
 	time_spent = current_time - philo->status->start_time;
 	if (action == TAKING_FORK)
@@ -76,6 +76,6 @@ size_t	print_status(t_philosopher *philo, t_action action)
 		printf(THINK_LOG, time_spent, philo->philo_name);
 	else if (action == DEAD)
 		printf(DEATH_LOG, time_spent, philo->philo_name);
-	sem_post(philo->status->sem_output);
+	sem_post(philo->status->sem_print_status);
 	return (current_time);
 }

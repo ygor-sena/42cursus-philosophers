@@ -6,7 +6,7 @@
 /*   By: yde-goes <yde-goes@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 18:45:14 by yde-goes          #+#    #+#             */
-/*   Updated: 2023/02/20 18:38:55 by yde-goes         ###   ########.fr       */
+/*   Updated: 2023/02/22 11:19:18 by yde-goes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,11 +49,11 @@ static void	raise_stop_dinner(t_philosopher *philo)
 	t_bool	no_queue;
 
 	no_queue = TRUE;
-	sem_wait(philo->status->sem_dinner);
-	if (*(int *)philo->status->sem_stop)
+	sem_wait(philo->status->sem_stop_dinner);
+	if (*(int *)philo->status->sem_is_dead)
 		no_queue = FALSE;
-	sem_post(philo->status->sem_stop);
-	sem_post(philo->status->sem_dinner);
+	sem_post(philo->status->sem_is_dead);
+	sem_post(philo->status->sem_stop_dinner);
 	if (no_queue)
 		print_status(philo, DEAD);
 }

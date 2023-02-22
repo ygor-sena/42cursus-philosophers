@@ -6,7 +6,7 @@
 /*   By: yde-goes <yde-goes@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 09:44:07 by yde-goes          #+#    #+#             */
-/*   Updated: 2023/02/20 22:19:15 by yde-goes         ###   ########.fr       */
+/*   Updated: 2023/02/22 11:13:18 by yde-goes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,19 @@
 # include <sys/types.h>
 # include <sys/wait.h>
 
-# define FORK_LOG "%5ld %2ld has taken a fork\n"
-# define EAT_LOG "%5ld %2ld is eating\n"
-# define SLEEP_LOG "%5ld %2ld is sleeping\n"
-# define THINK_LOG "%5ld %2ld is thinking\n"
-# define DEATH_LOG "%5ld %2ld died\n"
+# define FORK_LOG "%-5ld %2ld has taken a fork\n"
+# define EAT_LOG "%-5ld %2ld is eating\n"
+# define SLEEP_LOG "%-5ld %2ld is sleeping\n"
+# define THINK_LOG "%-5ld %2ld is thinking\n"
+# define DEATH_LOG "%-5ld %2ld died\n"
 
 # define FORKED_CHILD 0
+
+# define SEM_FORKS "/s_forks"
+# define SEM_PRINT_STATUS "/s_print_status"
+# define SEM_STOP_DINNER "/s_stop_dinner"
+# define SEM_LAST_MEAL "/s_last_meal"
+# define SEM_IS_DEAD "/s_is_dead"
 
 typedef enum e_bool
 {
@@ -58,10 +64,10 @@ typedef struct s_status
 	size_t			meals_to_eat;
 	size_t			start_time;
 	t_bool			stop_dinner;
-	sem_t			*sem_output;
-	sem_t			*sem_dinner;
+	sem_t			*sem_print_status;
+	sem_t			*sem_stop_dinner;
 	sem_t			*sem_last_meal;
-	sem_t			*sem_stop;
+	sem_t			*sem_is_dead;
 }	t_status;
 
 typedef struct s_philosopher
@@ -70,9 +76,9 @@ typedef struct s_philosopher
 	size_t			philo_name;
 	size_t			eat_again;
 	size_t			last_meal;
-	sem_t			*left_fork;
-	sem_t			*right_fork;
-	sem_t			*forks;
+	sem_t			*sem_left_fork;
+	sem_t			*sem_right_fork;
+	sem_t			*sem_forks;
 	pid_t			process;
 	t_status		*status;
 	pthread_t		manager;
@@ -103,6 +109,6 @@ void			mssleep(size_t ms_time);
 int				process_create(pid_t *process, \
 					int (*f)(void *), t_philosopher *philo);
 int				process_join(t_philosopher *philos);
-void			exit_program(int exit_status, t_philosopher *philos);
+void			exit_process(int exit_status, t_philosopher *philos);
 
 #endif

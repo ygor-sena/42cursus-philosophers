@@ -6,7 +6,7 @@
 /*   By: yde-goes <yde-goes@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 09:43:09 by yde-goes          #+#    #+#             */
-/*   Updated: 2023/02/20 22:18:50 by yde-goes         ###   ########.fr       */
+/*   Updated: 2023/02/22 11:12:03 by yde-goes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,26 +34,26 @@ int	main(int argc, char **argv)
 	philos = init_philosophers(&status, &forks);
 	if (!philos)
 	{
-		sem_unlink("/forks");
-		sem_close(philos->forks);
+		sem_unlink(SEM_FORKS);
+		sem_close(philos->sem_forks);
 		return (EXIT_FAILURE);
 	}
 	set_dinner(&status, philos);
 	free_data(philos);
-	return (0);
+	return (EXIT_SUCCESS);
 }
 
 static void	free_data(t_philosopher *philos)
 {
-	sem_unlink("/lock_output");
-	sem_unlink("/lock_dinner");
-	sem_unlink("/lock_last_meal");
-	sem_unlink("/forks");
-	sem_unlink("/lock_stop");
-	sem_close(philos->forks);
-	sem_close(philos->status->sem_output);
-	sem_close(philos->status->sem_dinner);
+	sem_unlink(SEM_FORKS);
+	sem_unlink(SEM_PRINT_STATUS);
+	sem_unlink(SEM_STOP_DINNER);
+	sem_unlink(SEM_LAST_MEAL);
+	sem_unlink(SEM_IS_DEAD);
+	sem_close(philos->sem_forks);
+	sem_close(philos->status->sem_print_status);
+	sem_close(philos->status->sem_stop_dinner);
 	sem_close(philos->status->sem_last_meal);
-	sem_close(philos->status->sem_stop);
+	sem_close(philos->status->sem_is_dead);
 	free(philos);
 }
