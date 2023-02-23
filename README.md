@@ -90,6 +90,9 @@ There are cases where a philosopher can die because the scheduler priorized some
   - [Introduction to Parallel Computing Tutorial](https://hpc.llnl.gov/documentation/tutorials/introduction-parallel-computing-tutorial##Overview) by [Lawrence Livermore National Laboratory](https://www.llnl.gov/).
   - [Race Condition vs. Data Race](https://blog.regehr.org/archives/490) by [Professor John Regehr](https://blog.regehr.org/).
 
+- About time conversion:
+  - [How to get the current time in milliseconds from C in Linux?](https://stackoverflow.com/questions/3756323/how-to-get-the-current-time-in-milliseconds-from-c-in-linux#17371925) by StackOverFlow
+  
 - About Helgrind and DRD (Data Race Detector):
   - [Helgrind: a thread error detector](https://valgrind.org/docs/manual/hg-manual.html) by [Valgrind](https://valgrind.org/).
   - [DRD: a thread error detector](https://valgrind.org/docs/manual/drd-manual.html) by [Valgrind](https://valgrind.org/).
