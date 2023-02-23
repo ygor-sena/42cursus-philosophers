@@ -32,4 +32,4 @@ jobs:
           python3 -m pip install norminette
   
       - name: Run norminette validation
-        run: norminette src libft includes
+        run: norminette philo/ philo_bonus/
