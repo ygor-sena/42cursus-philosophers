@@ -37,21 +37,40 @@ cd philo_bonus/ && make
 
 #### 3) Run the program
 
+Both the mandatory and bonus program take at least 5 arguments. The last one is optional. Each of them stands for:
+
+| #1 | #2 |  #3 | #4 | #5 | #6 (optional) |
+|:----|:----|:----|:----|:----|:----|
+|`./philo` or `./philo_bonus`| 5 | 800 | 200 | 200 | 5 |
+| `path_to_binary` |  `number_of_philosophers` | `time_to_die` | `time_to_eat` | `time_to_sleep` | `number_of_times_each_must_eat` |
+
+So, to start a dinning simulation where there are 5 philosophers that must eat 7 times each and the time to die, to eat and to sleep is 800, 200 and 200 respectively, we should execute the following command:
+
 ```html
-./fdf maps/10-2.fdf
+./philo 5 800 200 200 7
 ```
 
 #### 4) How to check for memory leaks and data race conditions
 
-You can also run `make` and a number between 1 and 21 as a shortkey to render the files in folder `maps` with valgrind to check for memory leaks. For example, the command below is equivalent to `valgrind ./fdf maps/elem2.fdf`. To see other commands with `make`, refer to `Makefile`.
+Run the program with the valgrind's flags below to check for memory leaks:
 
 ```
-make 11
+valgrind -q --leak-check=full --show-leak-kinds=all --track-origins=yes
 ```
 
+Also, run the program with valgrind's tools *DRD (Data Race Detector)* and *Helgrind* separately to search for data race conditions and typical syncronization problems such as deadlock:
 
+```
+valgrind --tool=drd 
+```
+
+```
+valgrind --tool=helgrind 
+```
 
 ## Known issues
+
+There are cases where a philosopher can die because the scheduler priorized some threads/processes instead of giving all of them the same priority. To avoid this, it is necessary to implement a function that always will make the hungriest philosopher dinner first. It is possible to implement this in the mandatory project according the rules of the subject. For the bonus project, we would need shared memory to share information between the child processes, but its use is not allowed by the subject.
 
 ## References
 
@@ -83,5 +102,4 @@ make 11
 
 ## Awknowledgements
 
-I want to thank Marcelo Magalhães, also a student at [42SP](https://www.42sp.org.br/) for his support throughout the project when I needed. Please, check out his interesting projects at GitHub [here]()
-
+I want to thank Marcelo Magalhães, also a student at [42SP](https://www.42sp.org.br/) for his support throughout the project when I needed. Please, check out his interesting projects at GitHub [here](https://github.com/magalhaesm).
