@@ -6,7 +6,7 @@
 /*   By: yde-goes <yde-goes@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 23:11:51 by yde-goes          #+#    #+#             */
-/*   Updated: 2023/02/22 11:12:58 by yde-goes         ###   ########.fr       */
+/*   Updated: 2023/02/23 10:33:53 by yde-goes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,16 +55,16 @@ int	process_join(t_philosopher *philos)
 
 void	exit_process(int exit_status, t_philosopher *philos)
 {
-	sem_unlink(SEM_FORKS);
-	sem_unlink(SEM_PRINT_STATUS);
-	sem_unlink(SEM_STOP_DINNER);
-	sem_unlink(SEM_LAST_MEAL);
-	sem_unlink(SEM_IS_DEAD);
 	sem_close(philos->sem_forks);
 	sem_close(philos->status->sem_print_status);
 	sem_close(philos->status->sem_stop_dinner);
 	sem_close(philos->status->sem_last_meal);
 	sem_close(philos->status->sem_is_dead);
+	sem_unlink(SEM_FORKS);
+	sem_unlink(SEM_PRINT_STATUS);
+	sem_unlink(SEM_STOP_DINNER);
+	sem_unlink(SEM_LAST_MEAL);
+	sem_unlink(SEM_IS_DEAD);
 	free(philos->philo_addr);
 	exit(exit_status);
 }
