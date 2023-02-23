@@ -37,12 +37,12 @@ cd philo_bonus/ && make
 
 #### 3) Run the program
 
-Both the mandatory and bonus program take at least 5 arguments. The last one is optional. Each of them stands for:
+Both the mandatory and bonus program take at least 5 arguments. The first parameter is the program's binary file and the last one is optional. Each of them stands for:
 
-| #1 | #2 |  #3 | #4 | #5 | #6 (optional) |
-|:----|:----|:----|:----|:----|:----|
-|`./philo` or `./philo_bonus`| 5 | 800 | 200 | 200 | 5 |
-| `path_to_binary` |  `number_of_philosophers` | `time_to_die` | `time_to_eat` | `time_to_sleep` | `number_of_times_each_must_eat` |
+| #2 | #3 | #4 | #5 | #6 (optional) |
+|:----|:----|:----|:----|:----|
+| 5 | 800 | 200 | 200 | 5 |
+| `number_of_philosophers` | `time_to_die` | `time_to_eat` | `time_to_sleep` | `number_of_times_each_must_eat` |
 
 So, to start a dinning simulation where there are 5 philosophers that must eat 7 times each and the time to die, to eat and to sleep is 800, 200 and 200 respectively, we should execute the following command:
 
