@@ -6,7 +6,7 @@
 /*   By: yde-goes <yde-goes@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 12:15:26 by yde-goes          #+#    #+#             */
-/*   Updated: 2023/02/22 10:57:11 by yde-goes         ###   ########.fr       */
+/*   Updated: 2023/02/22 18:59:07 by yde-goes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	eating(t_philosopher *philo)
 		sem_post(philo->sem_left_fork);
 		return ;
 	}
-	philo->eat_again++;
+	philo->eat_again += 1;
 	sem_wait(philo->status->sem_last_meal);
 	philo->last_meal = print_status(philo, EATING);
 	sem_post(philo->status->sem_last_meal);

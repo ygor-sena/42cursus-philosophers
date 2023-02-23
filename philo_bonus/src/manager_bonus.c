@@ -6,7 +6,7 @@
 /*   By: yde-goes <yde-goes@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 18:45:14 by yde-goes          #+#    #+#             */
-/*   Updated: 2023/02/22 11:19:18 by yde-goes         ###   ########.fr       */
+/*   Updated: 2023/02/23 09:12:13 by yde-goes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,15 +20,9 @@ void	*thread_manager(void *arg)
 	t_philosopher	*philo;
 
 	philo = (t_philosopher *)arg;
-	while (philo->eat_again != philo->status->meals_to_eat)
-	{
-		if (died_of_starvation(philo))
-		{
-			raise_stop_dinner(philo);
-			return (NULL);
-		}
+	while (!died_of_starvation(philo))
 		usleep(3000);
-	}
+	raise_stop_dinner(philo);
 	return (NULL);
 }
 
@@ -54,6 +48,6 @@ static void	raise_stop_dinner(t_philosopher *philo)
 		no_queue = FALSE;
 	sem_post(philo->status->sem_is_dead);
 	sem_post(philo->status->sem_stop_dinner);
-	if (no_queue)
+	if (no_queue && philo->eat_again != philo->status->meals_to_eat)
 		print_status(philo, DEAD);
 }
