@@ -103,6 +103,6 @@ There are cases where a philosopher can die because the scheduler priorized some
   - [Acelera: Philosophers](https://rodsmade.notion.site/Acelera-Philosophers-a82a52edabe24ea4a382393fae6c4531) by [rodsmade](https://github.com/rodsmade).
   - [Summary of the concepts of Philosophers project](https://www.notion.so/Philosophers-2b872948598e4f0cba91c66d8b5ba821) made with Notion.
 
-## Awknowledgements
+## Acknowledgements
 
 I want to thank Marcelo Magalhães, also a student at [42SP](https://www.42sp.org.br/) for his support throughout the project when I needed. Please, check out his interesting projects at GitHub [here](https://github.com/magalhaesm).
