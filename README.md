@@ -9,11 +9,11 @@
     <img src="https://img.shields.io/badge/Status-Completed-brightgreen.svg" alt="Status">
 </p>
 
-## Introduction
+## 📣 Introduction
 
 The ninth project of 42's curriculum asks students to solve the famous Dijkstra's synchronization problem called *The Dining Philosophers Problem*. This is a introduction to multithreads, multiprocesses, mutexes and semaphores. 
 
-## How to compile and run the project
+## ⚒️ How to compile and run the project
 
 #### 1) Copy this repository to your local workstation
 
@@ -68,11 +68,11 @@ valgrind --tool=drd
 valgrind --tool=helgrind 
 ```
 
-## Known issues
+## ⚠️ Known issues
 
 There are cases where a philosopher can die because the scheduler priorized some threads/processes instead of giving all of them the same priority. To avoid this, it is necessary to implement a function that always will make the hungriest philosopher dinner first. It is possible to implement this in the mandatory project according the rules of the subject. For the bonus project, we would need shared memory to share information between the child processes, but its use is not allowed by the subject.
 
-## References
+## 📖 References
 
 - General references:
   - [Concorrência e Paralelismo (Parte 1) | Entendendo Back-End para Iniciantes ](https://www.youtube.com/watch?v=cx1ULv4wYxM) by [Fábio Akita](https://www.youtube.com/@Akitando).
@@ -103,6 +103,6 @@ There are cases where a philosopher can die because the scheduler priorized some
   - [Acelera: Philosophers](https://rodsmade.notion.site/Acelera-Philosophers-a82a52edabe24ea4a382393fae6c4531) by [rodsmade](https://github.com/rodsmade).
   - [Summary of the concepts of Philosophers project](https://www.notion.so/Philosophers-2b872948598e4f0cba91c66d8b5ba821) made with Notion.
 
-## Acknowledgements
+## 🫂 Acknowledgements
 
 I want to thank Marcelo Magalhães, also a student at [42SP](https://www.42sp.org.br/) for his support throughout the project when I needed. Please, check out his interesting projects at GitHub [here](https://github.com/magalhaesm).
